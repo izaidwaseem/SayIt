@@ -7,6 +7,7 @@ import Signup from "./Auth/Signup";
 import Review from "./Reviews/Review";
 import Generate from "./Coupon/Generate";
 import Explore from "./Explore/Explore";
+import Test from "./Reviews/Testing";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="generate" element={<Generate />} />
           <Route path="explore" element={<Explore />} />
           <Route path="review/:productId" element={<ProductReview />} />
+          <Route path="test" element={<Test />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Route>
       </Routes>

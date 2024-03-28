@@ -1,8 +1,7 @@
 import React from "react";
 
-const Review = ({ product }) => {
-  const { name, imagePath, description, price, rating, brand, category } =
-    product; // Destructure product properties
+const Test = () => {
+  // const { name, imagePath, description, price, rating, brand, category } = product; // Destructure product properties
 
   const clothingReviews = [
     {
@@ -36,16 +35,16 @@ const Review = ({ product }) => {
     <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gradient-to-r from-rose-100 to-teal-100 py-4">
       <div className="flex lg:flex-row flex-col w-full justify-between">
         <div className="w-[48%] p-6 bg-[#FFFFFF] flex flex-col items-center justify-center height-[100%]">
-          <img src={getImageUrl(imagePath)} className="w-[100%] h-auto" />
+          <img src="./cloth.png" className="w-[100%] h-auto" />
         </div>
 
         <div className="w-[48%] p-6 text-lg font-bold text-[#87A922] bg-gray-200 flex flex-col gap-4 items-start justify-center height-[100%]">
-          <p className="font-extrabold size-2xl text-underline ">{name}</p>
-          <p>{description}</p> {/* Use description from props */}
-          <p>Price: ${price}</p> {/* Use price from props */}
-          <p>Rating: {rating}</p> {/* Use rating from props */}
-          <p>Brand: {brand}</p> {/* Use brand from props */}
-          <p>Category: {category}</p> {/* Use category from props */}
+          <p className="font-extrabold size-2xl text-underline ">name</p>
+          <p>description</p> {/* Use description from props */}
+          <p>Price: price</p> {/* Use price from props */}
+          <p>Rating: rating</p> {/* Use rating from props */}
+          <p>Brand: brand</p> {/* Use brand from props */}
+          <p>Category: category</p> {/* Use category from props */}
           <p>Amazing Product</p>
           <button
             className="bg-transparent text-black font-bold py-2 px-4"
@@ -89,9 +88,10 @@ const Review = ({ product }) => {
                       </div>
                     </div>
                   ))}
+
                   <button className="mt-2 text-white bg-[#E97451] hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 ">
                     Add Review
-                  </button>
+                    </button>
                 </div>
               </div>
             </div>
@@ -102,4 +102,4 @@ const Review = ({ product }) => {
   );
 };
 
-export default Review;
+export default Test;
