@@ -17,10 +17,9 @@ const App = () => {
           <Route index element={<Landing />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
-          <Route path="generate" element={<Generate />} />
+          <Route path="generate/:productId" element={<Generate />} />
           <Route path="explore" element={<Explore />} />
           <Route path="review/:productId" element={<ProductReview />} />
-          <Route path="test" element={<Test />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Route>
       </Routes>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
-
 const Explore = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -11,7 +10,9 @@ const Explore = () => {
     // Fetch data from backend when the component mounts
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/getAllProducts");
+        const response = await axios.get(
+          "http://localhost:3000/api/getAllProducts"
+        );
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching data:", error.message);
@@ -26,23 +27,25 @@ const Explore = () => {
     return `https://res.cloudinary.com/dxi8nz8su/image/upload/v1711106600/${publicId}`;
   };
 
-  
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:3000/api/searchProducts?searchTerm=${searchTerm}`);
+      const response = await axios.get(
+        `http://localhost:3000/api/searchProducts?searchTerm=${searchTerm}`
+      );
       console.log("Search results:", response.data); // Log the search results to verify
       setProducts(response.data);
     } catch (error) {
       console.error("Error searching products:", error.message);
     }
   };
-  
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gradient-to-r from-rose-100 to-teal-100 py-4">
-      <a href="/explore" className="font-bold text-5xl text-[#87A922] mt-10">Explore Clothes</a>
+      <a href="/explore" className="font-bold text-5xl text-[#87A922] mt-10">
+        Explore Clothes
+      </a>
       <form className="w-1/3 mx-auto mt-10" onSubmit={handleSubmit}>
         <div className="relative">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -80,25 +83,39 @@ const Explore = () => {
         </div>
       </form>
 
-      
       <div className="flex flex-wrap justify-center gap-8 mt-10">
         {products.map((product) => (
-        <Link to={`/review/${product._id}`} key={product._id} className="flex flex-col items-center justify-center rounded-lg shadow bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100 w-2/6 h-88" >
-
-          <div key={product._id} >
-            <img src={getImageUrl(product.imagePath)} className="w-[90%]" alt={product.name} />
-            <p className="font-bold text-2xl text-[#87A922] mb-10">{product.name}</p>
-            
-          </div>
-        </Link>
-
+          <>
+            <Link
+              to={`/review/${product._id}`}
+              key={product._id}
+              className="flex flex-col items-center justify-center rounded-lg shadow bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100 w-2/6 h-88"
+            >
+              <div key={product._id}>
+                <img
+                  src={getImageUrl(product.imagePath)}
+                  className="w-[90%]"
+                  alt={product.name}
+                />
+                <p className="font-bold text-2xl text-[#87A922] mb-10">
+                  {product.name}
+                </p>
+              </div>
+            </Link>
+            <Link
+              to={`/generate/${product._id}`}
+              key={product._id}
+              className="bg-transparent"
+            >
+              <button className="text-white bg-[#E97451] hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2">
+                Get discount code
+              </button>
+            </Link>
+          </>
         ))}
       </div>
-     
-
     </div>
   );
 };
 
 export default Explore;
-

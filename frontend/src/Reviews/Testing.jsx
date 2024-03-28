@@ -79,7 +79,7 @@ const Test = () => {
         </div>
 
         <div className="border border-green-400 rounded-lg w-[48%] p-6 text-lg font-bold text-[#87A922] bg-gray-200 flex flex-col gap-4 items-start justify-center height-[100%]">
-          <p className="font-extrabold size-2xl text-underline ">name</p>
+          <p className="font-extrabold text-2xl text-underline ">name</p>
           <p>description</p> {/* Use description from props */}
           <p>Price: price</p> {/* Use price from props */}
           <p>Rating: rating</p> {/* Use rating from props */}
