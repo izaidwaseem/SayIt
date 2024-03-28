@@ -1,4 +1,5 @@
 import React from "react";
+import Polarity from "./Polarity";
 
 const Test = () => {
   // const { name, imagePath, description, price, rating, brand, category } = product; // Destructure product properties
@@ -17,6 +18,45 @@ const Test = () => {
     {
       id: 3,
       user: "Zaid",
+      review: "Excellent service and fast delivery.",
+    },
+    {
+      id: 4,
+      user: "John",
+      review:
+        "The fit of this jacket is not good. It's too tight around my neck.",
+    },
+    {
+      id: 5,
+      user: "Emma",
+      review:
+        "The color of this skirt is not as expected. It's more of a darker shade than pictured.",
+    },
+    {
+      id: 6,
+      user: "Omar",
+      review:
+        "The material of this shirt is not durable. They easily rip after a few washes.",
+    },
+    {
+      id: 7,
+      user: "Sofia",
+      review:
+        "The size of this coat is too small. I'm a size medium and it barely fits.",
+    },
+    {
+      id: 8,
+      user: "Hussain",
+      review: "This shirt is amazing! Great quality.",
+    },
+    {
+      id: 9,
+      user: "Arif",
+      review: "Perfect fit and comfortable to wear.",
+    },
+    {
+      id: 10,
+      user: "Saima",
       review: "Excellent service and fast delivery.",
     },
   ];
@@ -38,7 +78,7 @@ const Test = () => {
           <img src="./cloth.png" className="w-[100%] h-auto" />
         </div>
 
-        <div className="w-[48%] p-6 text-lg font-bold text-[#87A922] bg-gray-200 flex flex-col gap-4 items-start justify-center height-[100%]">
+        <div className="border border-green-400 rounded-lg w-[48%] p-6 text-lg font-bold text-[#87A922] bg-gray-200 flex flex-col gap-4 items-start justify-center height-[100%]">
           <p className="font-extrabold size-2xl text-underline ">name</p>
           <p>description</p> {/* Use description from props */}
           <p>Price: price</p> {/* Use price from props */}
@@ -76,22 +116,24 @@ const Test = () => {
                     </svg>
                   </button>
                 </div>
-                <div>
+                <div className="w-full flex flex-col items-center overflow-y-auto h-96 ">
                   {clothingReviews.map((review) => (
                     <div
                       key={review.id}
-                      className={`bg-transparent text-green-500 p-4 flex flex-col items-center justify-center gap-2 w-11/12`}
+                      className={`bg-transparent  text-green-500 p-4 flex flex-col items-center gap-2 w-11/12`}
                     >
-                      <div className="bg-gradient-to-r from-indigo-200 via-red-100 to-yellow-100 p-4 rounded-md">
+                      <div className="bg-gradient-to-r from-indigo-200 via-red-100 to-yellow-100 p-4 rounded-md w-2/3">
                         <p className="text-black">{review.user}</p>
                         <p>{review.review}</p>
                       </div>
                     </div>
                   ))}
-
-                  <button className="mt-2 text-white bg-[#E97451] hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 ">
-                    Add Review
+                  <div className="flex flex-col gap-4 w-[70%]">
+                    <button className="mt-2 text-white bg-[#E97451] hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 ">
+                      Add Review
                     </button>
+                    <Polarity />
+                  </div>
                 </div>
               </div>
             </div>

@@ -35,7 +35,7 @@ const Review = ({ product }) => {
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gradient-to-r from-rose-100 to-teal-100 py-4">
       <div className="flex lg:flex-row flex-col w-full justify-between">
-        <div className="w-[48%] p-6 bg-[#FFFFFF] flex flex-col items-center justify-center height-[100%]">
+        <div className="border border-green-400 rounded-lg w-[48%] p-6 bg-[#FFFFFF] flex flex-col items-center justify-center height-[100%]">
           <img src={getImageUrl(imagePath)} className="w-[100%] h-auto" />
         </div>
 
@@ -77,21 +77,24 @@ const Review = ({ product }) => {
                     </svg>
                   </button>
                 </div>
-                <div>
+                <div className="w-full flex flex-col items-center overflow-y-auto h-96 ">
                   {clothingReviews.map((review) => (
                     <div
                       key={review.id}
-                      className={`bg-transparent text-green-500 p-4 flex flex-col items-center justify-center gap-2 w-11/12`}
+                      className={`bg-transparent  text-green-500 p-4 flex flex-col items-center gap-2 w-11/12`}
                     >
-                      <div className="bg-gradient-to-r from-indigo-200 via-red-100 to-yellow-100 p-4 rounded-md">
+                      <div className="bg-gradient-to-r from-indigo-200 via-red-100 to-yellow-100 p-4 rounded-md w-2/3">
                         <p className="text-black">{review.user}</p>
                         <p>{review.review}</p>
                       </div>
                     </div>
                   ))}
-                  <button className="mt-2 text-white bg-[#E97451] hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 ">
-                    Add Review
-                  </button>
+                  <div className="flex flex-col gap-4 w-[70%]">
+                    <button className="mt-2 text-white bg-[#E97451] hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 ">
+                      Add Review
+                    </button>
+                    <Polarity />
+                  </div>
                 </div>
               </div>
             </div>
