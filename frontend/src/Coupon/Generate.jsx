@@ -20,7 +20,7 @@ const Generate = ([product]) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 w-full min-h-screen bg-[#98CABD]">
+    <div className="flex flex-col items-center justify-center gap-4 w-full min-h-screen bg-gradient-to-r from-rose-100 to-teal-100 ">
       <div className="flex flex-col items-center justify-center bg-[#FFFFFF] text-[#87A922] rounded-md h-72 gap-4">
         {/* <img src="tshirt.png" className="w-80 " />*/}
         <img src={getImageUrl(imagePath)} className="w-[100%] h-auto" />
