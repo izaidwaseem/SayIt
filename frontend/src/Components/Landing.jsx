@@ -4,7 +4,7 @@ import ScrollReveal from "../Scroll/Reveal";
 
 const Landing = () => {
   return (
-    <div className="flex w-full items-center justify-center min-h-screen bg-[#EEEEEE]">
+    <div className="flex w-full items-center justify-center min-h-screen bg-gradient-to-r from-rose-100 to-teal-100 ">
       <div className="w-1/3 lg:block hidden">
         <ScrollReveal>
           <img src="Lpage.png" alt="logo" className="w-[90%] h-auto" />

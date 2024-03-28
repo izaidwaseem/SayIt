@@ -41,12 +41,9 @@ const Explore = () => {
   
 
   return (
-    <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gradient-to-r from-gray-700 via-gray-900 to-black py-4">
-      <a href="/explore" className="font-bold text-5xl text-[#8e64ff] mt-10">Explore Clothes</a>
+    <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gradient-to-r from-rose-100 to-teal-100 py-4">
+      <a href="/explore" className="font-bold text-5xl text-[#87A922] mt-10">Explore Clothes</a>
       <form className="w-1/3 mx-auto mt-10" onSubmit={handleSubmit}>
-        <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
-          Search
-        </label>
         <div className="relative">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <svg
@@ -68,7 +65,7 @@ const Explore = () => {
           <input
             type="search"
             id="default-search"
-            className="block w-full p-4 ps-10 text-sm border rounded-lg bg-gray-700 placeholder-gray-400 text-white"
+            className="block w-full p-4 ps-10 text-md rounded-lg bg-transparent text-green-500 font-semibold border border-gray-600 focus:outline-none focus:bg-transparent"
             placeholder="Search by shirt type"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -76,20 +73,21 @@ const Explore = () => {
           />
           <button
             type="submit"
-            className="text-white absolute end-2.5 bottom-2.5 bg-purple-700 hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2"
+            className="text-white absolute end-2.5 bottom-2.5 bg-[#E97451] hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2"
           >
             Search
           </button>
         </div>
       </form>
 
+      
       <div className="flex flex-wrap justify-center gap-8 mt-10">
         {products.map((product) => (
-        <Link to={`/review/${product._id}`} key={product._id} className="flex flex-col items-center justify-center rounded-lg shadow bg-gradient-to-r from-gray-400 via-gray-600 to-blue-800 w-2/6 h-88" >
+        <Link to={`/review/${product._id}`} key={product._id} className="flex flex-col items-center justify-center rounded-lg shadow bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100 w-2/6 h-88" >
 
           <div key={product._id} >
             <img src={getImageUrl(product.imagePath)} className="w-[90%]" alt={product.name} />
-            <p className="font-bold text-2xl text-black mb-10">{product.name}</p>
+            <p className="font-bold text-2xl text-[#87A922] mb-10">{product.name}</p>
             
           </div>
         </Link>

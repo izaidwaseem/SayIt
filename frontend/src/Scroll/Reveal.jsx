@@ -17,7 +17,8 @@ const ScrollReveal = ({ children }) => {
       ref={ref}
       animate={controls}
       initial="hidden"
-      transition={{ duration: 0.8 }}
+      width = "100%"
+      transition={{ duration: 1.5 }}
       variants={{
         visible: { opacity: 1, y: 0 },
         hidden: { opacity: 0, y: 20 },

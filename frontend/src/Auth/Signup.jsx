@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { css } from "@emotion/react";
 import { ScaleLoader } from "react-spinners";
+import ScrollReveal from "../Scroll/Reveal";
 
 
 const Signup = () => {
@@ -46,27 +47,31 @@ const Signup = () => {
       setLoading(false); // Reset loading state regardless of success or failure
     }
   };
-
+  
   return (
-    <div className="flex w-full items-center justify-center min-h-screen bg-[#F5F5DC]">
+    <div className="flex w-full items-center justify-center min-h-screen bg-gradient-to-r from-indigo-200 via-red-100 to-yellow-100  ">
       <div className="w-[40%] lg:block hidden">
+      <ScrollReveal>
         <img src="hanger.png" alt="logo" className="w-[90%] h-auto" />
+      </ScrollReveal>
       </div>
       <div className="flex flex-col items-center justify-center gap-8 lg:w-1/2 w-full px-6 py-4">
-        <div className="bg-[#98CABD] flex flex-col items-center justify-center w-full gap-4 rounded-lg text-black bg-opacity-80 p-4">
-          <p className="text-center font-bold text-3xl italic mt-4">SayIt</p>
-          <p className="text-xl italic">Where Apparel Meets Opinions</p>
+        <div className="bg-[#FFFFFF] flex flex-col items-center justify-center w-full gap-4 rounded-lg text-[#31363F] bg-opacity-80 p-4">
+        <ScrollReveal>
+          <p className="text-center text-[#87A922] font-bold text-3xl italic mt-4">SayIt</p>
+          <p className="text-xl text-[#87A922] font-semibold italic">Where Apparel Meets Opinions</p>
+        </ScrollReveal>
 
           <p className="text-black text-lg font-semibold">Username</p>
           <input
-            className="p-2 rounded-lg w-[80%] bg-transparent text-white font-semibold border border-gray-600 focus:outline-none focus:bg-transparent"
+            className="p-2 rounded-lg w-[80%] bg-transparent text-green-500 font-semibold border border-gray-600 focus:outline-none focus:bg-transparent"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <p className="text-black text-lg font-semibold">Email</p>
           <input
-            className="p-2 rounded-lg w-[80%] bg-transparent text-white font-semibold border border-gray-600 focus:outline-none focus:bg-transparent"
+            className="p-2 rounded-lg w-[80%] bg-transparent text-green-500 font-semibold border border-gray-600 focus:outline-none focus:bg-transparent"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -74,20 +79,20 @@ const Signup = () => {
 
           <p className="text-black text-lg font-semibold">Password</p>
           <input
-            className="p-2 rounded-lg w-[80%] bg-transparent text-white font-semibold border border-gray-600 focus:outline-none focus:bg-transparent"
+            className="p-2 rounded-lg w-[80%] bg-transparent text-green-500 font-semibold border border-gray-600 focus:outline-none focus:bg-transparent"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <p className="text-black text-lg font-semibold">Confirm Password</p>
           <input
-            className="p-2 rounded-lg w-[80%] bg-transparent text-white font-semibold border border-gray-600 focus:outline-none focus:bg-transparent"
+            className="p-2 rounded-lg w-[80%] bg-transparent text-green-500 font-semibold border border-gray-600 focus:outline-none focus:bg-transparent"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
           <button
-            className="bg-[#E97451] text-black font-semibold p-2 md:w-[30%] w-[50%] rounded-full hover:bg-orange-600 hover:text-white"
+            className="bg-[#E97451] text-white font-semibold p-2 md:w-[30%] w-[50%] rounded-full hover:bg-[#114232] hover:text-white"
             onClick={handleSignup}
             disabled={loading} // Disable the button when loading
           >
@@ -101,7 +106,7 @@ const Signup = () => {
           <p>Already have an account💨 </p>
           <button
             onClick={() => (window.location.href = "/login")}
-            className="bg-[#E97451] text-black font-semibold p-2 md:w-[30%] w-[50%] rounded-full hover:bg-orange-600 hover:text-white mb-2"
+            className="bg-[#E97451] text-white font-semibold p-2 md:w-[30%] w-[50%] rounded-full hover:bg-[#114232] hover:text-white mb-2"
           >
             Login
           </button>
