@@ -7,7 +7,7 @@ import Signup from "./Auth/Signup";
 import Review from "./Reviews/Review";
 import Generate from "./Coupon/Generate";
 import Explore from "./Explore/Explore";
-import Test from "./Reviews/Testing";
+
 
 const App = () => {
   return (
@@ -17,7 +17,7 @@ const App = () => {
           <Route index element={<Landing />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
-          <Route path="generate/:productId" element={<Generate />} />
+          <Route path="generate/:productId" element={<GenerateCoupon />} />
           <Route path="explore" element={<Explore />} />
           <Route path="review/:productId" element={<ProductReview />} />
           <Route path="*" element={<h1>Not Found</h1>} />
@@ -27,6 +27,7 @@ const App = () => {
   );
 };
 
+//fetching the product
 const ProductReview = () => {
   const [product, setProduct] = useState(null);
   const { productId } = useParams();
@@ -45,6 +46,26 @@ const ProductReview = () => {
   }, [productId]);
 
   return product ? <Review product={product} /> : null;
+};
+
+const GenerateCoupon = () => {
+  const [product, setProduct] = useState(null);
+  const { productId } = useParams();
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/api/getProductById/${productId}`);
+        setProduct(response.data);
+      } catch (error) {
+        console.error("Error fetching product:", error.message);
+      }
+    };
+
+    fetchProduct();
+  }, [productId]);
+
+  return product ? <Generate product={product} /> : null;
 };
 
 export default App;

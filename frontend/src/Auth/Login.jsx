@@ -33,7 +33,7 @@ const Login = () => {
     <div className="flex w-full items-center justify-center min-h-screen bg-gradient-to-r from-indigo-200 via-red-100 to-yellow-100 ">
       <div className="w-1/3 lg:block hidden">
         <ScrollReveal>
-        <img src="login.png" alt="logo" className="w-[90%] h-auto" />
+          <img src="login.png" alt="logo" className="w-[90%] h-auto" />
         </ScrollReveal>
       </div>
       <div className="bg-[#FFFFFF] flex flex-col items-center justify-center gap-8 lg:w-1/2 w-full px-6 py-4">
@@ -65,9 +65,9 @@ const Login = () => {
           <button
             className="bg-[#E97451] text-white font-semibold p-2 w-[30%] rounded-full hover:bg-[#114232] hover:text-white relative" // Add relative positioning
             onClick={handleSubmit} // Call handleSubmit function on button click
+            disabled={loading} // Disable the button when loading
           >
-            Login
-            {loading && ( // Conditionally render the loader inside the button
+            {loading ? ( // Conditionally render the loader or login text
               <ScaleLoader
                 color={"#ffffff"}
                 loading={loading}
@@ -76,6 +76,8 @@ const Login = () => {
                 radius={2}
                 margin={2}
               />
+            ) : (
+              "Login"
             )}
           </button>
           <p>Or</p>

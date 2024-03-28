@@ -100,17 +100,17 @@ const Explore = () => {
                 <p className="font-bold text-2xl text-[#87A922] mb-10">
                   {product.name}
                 </p>
+                {/* <button className="text-white bg-[#E97451] hover:bg-teal-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2">
+                Get discount code
+              </button> */}
+                <Link to={`/generate/${product._id}`}>
+                  <button className="text-white bg-[#E97451] hover:bg-teal-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2">
+                    Get discount code
+                  </button>
+                </Link>
               </div>
             </Link>
-            <Link
-              to={`/generate/${product._id}`}
-              key={product._id}
-              className="bg-transparent"
-            >
-              <button className="text-white bg-[#E97451] hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2">
-                Get discount code
-              </button>
-            </Link>
+
           </>
         ))}
       </div>

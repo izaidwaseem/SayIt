@@ -50,46 +50,6 @@ const uploadImagesInBulk = async (req, res) => {
     res.status(500).json({ error: 'Failed to upload images' });
   }
 };
-// Function to upload images in bulk
-// const uploadImagesInBulk = async (folderPath) => {
-//   try {
-//       const files = fs.readdirSync(folderPath);
-
-//       for (const file of files) {
-//           const filePath = path.join(folderPath, file);
-//           const result = await cloudinary.uploader.upload(filePath);
-//           console.log(`Uploaded ${file}: ${result.secure_url}`);
-//       }
-//   } catch (error) {
-//       console.error('Error uploading images:', error);
-//       throw error;
-//   }
-// };
-
-
-// const uploadImages = async (req, res) => {
-//   try {
-//     upload.single('image')(req, res, async function (err) {
-//       if (err instanceof multer.MulterError) {
-//         // A Multer error occurred when uploading.
-//         res.status(400).json({ error: 'Failed to upload image' });
-//       } else if (err) {
-//         // An unknown error occurred when uploading.
-//         res.status(500).json({ error: 'Failed to upload image' });
-//       }
-
-//       // No errors occurred. Proceed to upload image to Cloudinary.
-//       try {
-//         const imageUrl = await uploadImage(req.file); // Assuming you're uploading a file using Multer or similar middleware
-//         res.json({ imageUrl });
-//       } catch (error) {
-//         res.status(500).json({ error: 'Failed to upload image to Cloudinary' });
-//       }
-//     });
-//   } catch (error) {
-//     res.status(500).json({ error: 'Failed to upload image' });
-//   }
-// };
 
 const uploadImages = async (req, res) => {
   try {
@@ -168,7 +128,47 @@ const createProduct = async (req, res) => {
       res.status(500).json({ error: 'Failed to fetch product' });
     }
   };
+
+  const getProductReviews = async (req, res) => {
+    try {
+      const productId = req.params.productId;
+      const product = await Product.findById(productId);
+      if (!product) {
+        return res.status(404).json({ message: 'Product not found' });
+      }
+      const reviews = product.reviews;
+      res.json(reviews);
+    } catch (error) {
+      console.error('Error fetching reviews:', error.message);
+      res.status(500).json({ message: 'Server error' });
+    }
+  };
   
-  module.exports = { getAllProducts, createProduct, uploadImages, searchProducts, getProductById };
+const addReview = async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const { reviewer, review } = req.body;
+
+    // Find the product by ID
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    // Add the new review to the product's reviews array
+    product.reviews.push({ reviewer, review });
+
+    // Save the updated product
+    await product.save();
+
+    // Return the updated product with the added review
+    res.status(201).json(product);
+  } catch (error) {
+    console.error('Error adding review:', error);
+    res.status(500).json({ error: 'Failed to add review' });
+  }
+};
+
+module.exports = { getAllProducts, createProduct, uploadImages, searchProducts, getProductById, getProductReviews, addReview };
   
 
