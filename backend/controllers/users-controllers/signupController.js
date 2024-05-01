@@ -1,6 +1,6 @@
 const User = require('../../models/users/userSchema');
 const bcrypt = require('bcrypt');
-const saltRounds = 20; // Number of salt rounds for bcrypt
+const saltRounds = 10; // Number of salt rounds for bcrypt
 
 // Create a new user
 const createUser = async (req, res) => {

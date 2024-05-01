@@ -3,24 +3,61 @@ import axios from "axios";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const Explore = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    // Fetch data from backend when the component mounts
+    // Check if the user is logged in (e.g., by checking the presence of a token in localStorage)
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+
+    if (!token) {
+      // Redirect or show a message to prompt the user to log in
+      return;
+    }
+
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/getAllProducts"
+          `http://localhost:3000/getAllProducts?page=${page}&perPage=${perPage}`
         );
-        setProducts(response.data);
+        setProducts(response.data.products);
+        setTotalPages(response.data.totalPages);
+
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
     };
 
     fetchData();
-  }, []);
+  }, [page, perPage]);
+
+  // Pagination handlers
+  // const goToPage = (pageNumber) => {
+  //   setPage(pageNumber);
+  // };
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
+
+  const handlePrevPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (page < totalPages) {
+      setPage(page + 1);
+    }
+  };
+
+
 
   // Function to construct Cloudinary image URL
   const getImageUrl = (publicId) => {
@@ -32,20 +69,34 @@ const Explore = () => {
     e.preventDefault();
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/searchProducts?searchTerm=${searchTerm}`
+        `http://localhost:3000/searchProducts?searchTerm=${searchTerm}`
       );
-      console.log("Search results:", response.data); // Log the search results to verify
       setProducts(response.data);
     } catch (error) {
       console.error("Error searching products:", error.message);
     }
   };
 
+  // If the user is not logged in, render a message or login button
+  if (!isLoggedIn) {
+    return (
+      <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gradient-to-r from-rose-100 to-teal-100 py-4">
+        <p className="text-lg font-semibold text-gray-800 mb-4">Please log in to access this page.</p>
+        <Link to="/login">
+          <button className="bg-[#E97451] text-white px-4 py-2 rounded-lg hover:bg-[#d9452a] focus:outline-none focus:ring-2 focus:ring-[#E97451] focus:ring-opacity-50 transition duration-300 ease-in-out">
+            Log in
+          </button>
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gradient-to-r from-rose-100 to-teal-100 py-4">
       <a href="/explore" className="font-bold text-5xl text-[#87A922] mt-10">
         Explore Clothes
       </a>
+
       <form className="w-1/3 mx-auto mt-10" onSubmit={handleSubmit}>
         <div className="relative">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -76,7 +127,7 @@ const Explore = () => {
           />
           <button
             type="submit"
-            className="text-white absolute end-2.5 bottom-2.5 bg-[#E97451] hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2"
+            className="text-white absolute end-2.5 bottom-2.5 bg-[#E97451] hover:bg-teal-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2"
           >
             Search
           </button>
@@ -84,8 +135,8 @@ const Explore = () => {
       </form>
 
       <div className="flex flex-wrap justify-center gap-8 mt-10">
-        {products.map((product) => (
-          <>
+        {products.length > 0 ? (
+          products.map((product) => (
             <Link
               to={`/review/${product._id}`}
               key={product._id}
@@ -100,9 +151,6 @@ const Explore = () => {
                 <p className="font-bold text-2xl text-[#87A922] mb-10">
                   {product.name}
                 </p>
-                {/* <button className="text-white bg-[#E97451] hover:bg-teal-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2">
-                Get discount code
-              </button> */}
                 <Link to={`/generate/${product._id}`}>
                   <button className="text-white bg-[#E97451] hover:bg-teal-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2">
                     Get discount code
@@ -110,10 +158,42 @@ const Explore = () => {
                 </Link>
               </div>
             </Link>
+          ))
+        ) : (
+          <p>Loading...</p>
+        )}
 
-          </>
-        ))}
       </div>
+      <div className="w-1/3 mx-auto mt-10 mb-10">
+        <nav aria-label="Pagination">
+          <ul className="flex justify-center space-x-4">
+            <li>
+              <button
+                onClick={handlePrevPage}
+                disabled={page === 1}
+                className={`text-[#E97451] ${page === 1 ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+              >
+                Prev
+              </button>
+            </li>
+            <li>
+              <span className="font-bold">{page}</span>
+            </li>
+            <li>
+              <button
+                onClick={handleNextPage}
+                disabled={page === totalPages}
+                className={`text-[#E97451] ${page === totalPages ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+              >
+                Next
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
     </div>
   );
 };

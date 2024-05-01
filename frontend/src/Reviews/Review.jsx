@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { Scrollbars } from 'react-custom-scrollbars-2';
 import Polarity from "./Polarity";
 
 const Review = ({ product }) => {
-  const { name, imagePath, description, price, rating, brand, category, reviews } = product;
+  const { name, imagePath, description, price, rating, brand, category, reviews,  } = product;
 
   const getImageUrl = (publicId) => {
     return `https://res.cloudinary.com/dxi8nz8su/image/upload/v1711106600/${publicId}`;
@@ -23,7 +24,7 @@ const Review = ({ product }) => {
       };
   
       // Make a POST request to add the review
-      const response = await fetch(`http://localhost:3000/api/${productId}/addReview`, {
+      const response = await fetch(`http://localhost:3000/${productId}/addReview`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -60,20 +61,30 @@ const Review = ({ product }) => {
   };
 
   return (
+    <Scrollbars style={{ width: "100vw", height: "100vh" }}>
+
     <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gradient-to-r from-rose-100 to-teal-100 py-4">
       <div className="flex lg:flex-row flex-col w-full justify-between">
         <div className="border border-green-400 rounded-lg w-[48%] p-6 bg-[#FFFFFF] flex flex-col items-center justify-center height-[100%]">
-          <img src={getImageUrl(imagePath)} className="w-[100%] h-auto" />
+          <img src={getImageUrl(imagePath)} className="w-[100%] h-auto" alt={name} />
         </div>
 
         <div className="w-[48%] p-6 text-lg font-bold text-[#87A922] bg-gray-200 flex flex-col gap-4 items-start justify-center height-[100%]">
           <p className="font-extrabold size-2xl text-underline ">{name}</p>
           <p>{description}</p>
-          <p>Price: ${price}</p>
+          <p>Price: {price}RS</p>
           <p>Rating: {rating}</p>
           <p>Brand: {brand}</p>
-          <p>Category: {category}</p>
-          <p>Amazing Product</p>
+          {category.length > 0 && (
+            <p>Category: {category[0].gender}, {category[0].type}</p>
+          )}
+          <p>Reviews:</p>
+          {reviews.length > 0 && (
+            <>
+              <p>{reviews[0].reviewer}</p>
+              <p>{reviews[0].review}</p>
+            </>
+          )}
           <button
             className="bg-transparent text-black font-bold py-2 px-4"
             onClick={toggleModal}
@@ -92,10 +103,10 @@ const Review = ({ product }) => {
                   </button>
                 </div>
                 <div className="w-full flex flex-col items-center overflow-y-auto h-96 ">
-                  {reviews.map((review) => (
+                  {reviews.slice(1).map((review, index) => (
                     <div
-                      key={review.id}
-                      className={`bg-transparent  text-green-500 p-4 flex flex-col items-center gap-2 w-11/12`}
+                      key={index} 
+                      className={`bg-transparent text-green-500 p-4 flex flex-col items-center gap-2 w-11/12`}
                     >
                       <div className="bg-gradient-to-r from-indigo-200 via-red-100 to-yellow-100 p-4 rounded-md w-2/3">
                         <p className="text-black">{review.reviewer}</p>
@@ -103,8 +114,8 @@ const Review = ({ product }) => {
                       </div>
                     </div>
                   ))}
-                
                 </div>
+
                 {/* Form for adding a new review */}
                 <form onSubmit={() => handleAddReview(product._id)} className="w-full flex flex-col items-center gap-4">
                   <input
@@ -124,7 +135,7 @@ const Review = ({ product }) => {
                     required
                   />
                   <div className="flex flex-col gap-4 w-[70%]">
-                    <button type="submit" className="text-white bg-[#E97451] hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2">
+                    <button type="submit" className="text-white bg-[#E97451] hover:bg-teal-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2">
                       Add Review
                     </button>
                     <Polarity />
@@ -136,6 +147,7 @@ const Review = ({ product }) => {
         </div>
       </div>
     </div>
+    </Scrollbars>
   );
 
 };

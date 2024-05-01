@@ -7,6 +7,8 @@ import Signup from "./Auth/Signup";
 import Review from "./Reviews/Review";
 import Generate from "./Coupon/Generate";
 import Explore from "./Explore/Explore";
+import Admin from "./AdminPortal/Admin";
+import UserManagement from "./AdminPortal/UserManagement";
 
 
 const App = () => {
@@ -20,6 +22,9 @@ const App = () => {
           <Route path="generate/:productId" element={<GenerateCoupon />} />
           <Route path="explore" element={<Explore />} />
           <Route path="review/:productId" element={<ProductReview />} />
+          <Route path="admin" element={<Admin />} />
+          <Route path="admin/userManagement" element={<UserManagement />} />
+          
           <Route path="*" element={<h1>Not Found</h1>} />
         </Route>
       </Routes>
@@ -35,7 +40,7 @@ const ProductReview = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/getProductById/${productId}`);
+        const response = await axios.get(`http://localhost:3000/getProductById/${productId}`);
         setProduct(response.data);
       } catch (error) {
         console.error("Error fetching product:", error.message);
@@ -55,7 +60,7 @@ const GenerateCoupon = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/getProductById/${productId}`);
+        const response = await axios.get(`http://localhost:3000/getProductById/${productId}`);
         setProduct(response.data);
       } catch (error) {
         console.error("Error fetching product:", error.message);

@@ -18,7 +18,7 @@ const Polarity = () => {
   return (
     <>
       <button
-        className="mt-2 text-white bg-[#E97451] hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 "
+        className="mt-2 text-white bg-[#E97451] hover:bg-teal-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 "
         onClick={toggleModal}
       >
         See Reviews Polarity

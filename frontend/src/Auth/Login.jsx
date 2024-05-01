@@ -7,6 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false); // State for loading indicator
+  const [error, setError] = useState(""); // State for error message
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,9 +24,16 @@ const Login = () => {
       window.location.href = "/explore";
     } catch (error) {
       // Handle login error
-      console.error("Login failed:", error);
+      console.error("Login failed:", error.response.data.message);
+      setError(error.response.data.message); // Set error message based on response
     } finally {
       setLoading(false); // Stop loading indicator
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
     }
   };
 
@@ -46,12 +54,14 @@ const Login = () => {
               Where Apparel Meets Opinions
             </p>
           </ScrollReveal>
+          {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
           <p className="text-black text-lg font-semibold">Email</p>
           <input
             className="p-2 rounded-lg w-[80%] bg-transparent text-green-500 font-semibold border border-gray-600 focus:outline-none focus:bg-transparent"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onKeyPress={handleKeyPress} // Submit on Enter key press
           />
 
           <p className="text-black text-lg font-semibold">Password</p>
@@ -60,6 +70,7 @@ const Login = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onKeyPress={handleKeyPress} // Submit on Enter key press
           />
 
           <button

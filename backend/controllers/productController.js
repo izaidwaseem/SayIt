@@ -1,8 +1,10 @@
 const Product = require('../models/productSchema');
 const cloudinary = require('.././config/cloudinaryConfig');
-const fs = require('fs');
 const path = require('path');
-const upload = require('../config/multerConfig');
+const fs = require('fs');
+const csv = require('csv-parser');
+const mongoose = require('mongoose');
+// const upload = require('../config/multerConfig');
 const multer = require('multer');
 
 
@@ -63,14 +65,123 @@ const uploadImages = async (req, res) => {
   }
 };
 
+// const insertProductsFromCSV = async (req, res) => {
+//   try {
+//     const products = [];
+  
+//     // Construct the absolute path to the uploaded CSV file
+//     const csvFilePath = path.join(__dirname, '..', 'uploads', 'wearables.csv');
+//     console.log("path of csv:", csvFilePath);
+
+//     fs.createReadStream(csvFilePath) // Use the correct file path
+//       .pipe(csv())
+//       .on('data', (row) => {
+//         // Parse reviews into an array of objects
+//         const reviews = row.reviews.split(',').map(review => {
+//           const [reviewer, reviewText] = review.split(':');
+//           return { reviewer: reviewer.trim(), review: reviewText.trim() };
+//         });
+
+//         // Construct product object
+//         const product = {
+//           name: row.name,
+//           description: row.description,
+//           price: parseInt(row.price),
+//           imagePath: row.imagePath,
+//           rating: parseFloat(row.rating),
+//           reviews: reviews,
+//           brand: row.brand,
+//           category: [{ gender: row.category_gender, type: row.category_type }],
+//         };
+//         products.push(product);
+//       })
+//       .on('end', async () => {
+//         await Product.insertMany(products);
+//         res.status(200).json({ message: 'Data successfully inserted into MongoDB.' });
+//       });
+
+
+//   } catch (error) {
+//     console.error('Error inserting data:', error);
+//     res.status(500).json({ error: 'Failed to insert data into MongoDB.' });
+//   }
+// };
+
+const insertProductsFromCSV = async (req, res) => {
+  try {
+    const products = [];
+  
+    // Construct the absolute path to the uploaded CSV file
+    const csvFilePath = path.join(__dirname, '..', 'uploads', 'wearables.csv');
+    console.log("path of csv:", csvFilePath);
+
+    fs.createReadStream(csvFilePath) // Use the correct file path
+      .pipe(csv())
+      .on('data', (row) => {
+        // Parse reviews into an array of objects
+        const reviews = row.reviews.split(',').map(review => {
+          const [reviewer, reviewText] = review.split(':');
+          if (!reviewText) {
+            return null; // Skip this review if reviewText is undefined
+          }
+          return { reviewer: reviewer.trim(), review: reviewText.trim() };
+        }).filter(review => review !== null); // Filter out null reviews
+
+        // Construct product object
+        const product = {
+          name: row.name,
+          description: row.description,
+          price: parseInt(row.price),
+          imagePath: row.imagePath,
+          rating: parseFloat(row.rating),
+          reviews: reviews,
+          brand: row.brand,
+          category: [{ gender: row.category_gender, type: row.category_type }],
+        };
+        products.push(product);
+      })
+      .on('end', async () => {
+        await Product.insertMany(products);
+        res.status(200).json({ message: 'Data successfully inserted into MongoDB.' });
+      });
+
+
+  } catch (error) {
+    console.error('Error inserting data:', error);
+    res.status(500).json({ error: 'Failed to insert data into MongoDB.' });
+  }
+};
+
+
+// const getAllProducts = async (req, res) => {
+//   try {
+//     const products = await Product.find();
+//     res.json(products);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
 const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find();
-    res.json(products);
+    let { page, perPage } = req.query;
+    page = parseInt(page) || 1; // Convert to integer, default to page 1
+    perPage = parseInt(perPage) || 10; // Convert to integer, default to 10 products per page
+
+    const startIndex = (page - 1) * perPage;
+    const endIndex = page * perPage;
+
+    const totalProducts = await Product.countDocuments();
+    const totalPages = Math.ceil(totalProducts / perPage);
+
+    const products = await Product.find().skip(startIndex).limit(perPage);
+
+    res.json({ products, totalPages });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 const createProduct = async (req, res) => {
     const product = new Product({
@@ -169,6 +280,6 @@ const addReview = async (req, res) => {
   }
 };
 
-module.exports = { getAllProducts, createProduct, uploadImages, searchProducts, getProductById, getProductReviews, addReview };
+module.exports = { insertProductsFromCSV, getAllProducts, createProduct, uploadImages, searchProducts, getProductById, getProductReviews, addReview };
   
 

@@ -12,7 +12,18 @@ const productSchema = new mongoose.Schema({
     review: { type: String, required: true }
   }], 
   brand: { type: String }, 
-  category: { type: String } 
+  category: [
+    {
+      gender: {
+        type: String,
+        required: true
+      },
+      type: {
+        type: String,
+        required: true
+      }
+    }
+  ],
 });
 
 module.exports = mongoose.model('Product', productSchema);
