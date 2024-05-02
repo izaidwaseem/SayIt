@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
-//var CanvasJSReact = require('@canvasjs/react-charts');
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -9,7 +8,7 @@ class Pie extends Component {
     const options = {
       theme: "dark2",
       animationEnabled: true,
-      exportFileName: "New Year Resolutions",
+      exportFileName: "Brands by Products",
       exportEnabled: true,
       title: {
         text: "Brands by Products",
