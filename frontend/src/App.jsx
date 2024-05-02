@@ -9,6 +9,9 @@ import Generate from "./Coupon/Generate";
 import Explore from "./Explore/Explore";
 import Admin from "./AdminPortal/Admin";
 import UserManagement from "./AdminPortal/UserManagement";
+import ProductManagement from "./AdminPortal/ProductManagement";
+import ReviewManagement from "./AdminPortal/ReviewManagement";
+import AnalyticsAndReporting from "./AdminPortal/AnalyticsAndReporting";
 
 
 const App = () => {
@@ -24,6 +27,9 @@ const App = () => {
           <Route path="review/:productId" element={<ProductReview />} />
           <Route path="admin" element={<Admin />} />
           <Route path="admin/userManagement" element={<UserManagement />} />
+          <Route path="admin/productManagement" element={<ProductManagement />} />
+          <Route path="admin/reviewManagement" element={<ReviewManagement />} />
+          <Route path="admin/analyticsAndReporting" element={<AnalyticsAndReporting />} />
           
           <Route path="*" element={<h1>Not Found</h1>} />
         </Route>

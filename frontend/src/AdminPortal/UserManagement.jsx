@@ -102,12 +102,13 @@ const UserManagement = () => {
   }, []);
 
   return (
-    <div className="user-management">
-      <h2>User Management</h2>
+    <div className="user-management  font-bold ">
+      <p className="text-2xl py-2 text-underline">User Management</p>
       {/* Form for adding/editing users */}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
+          className="p-2 mt-1"
           placeholder="Username"
           value={editingUser ? editingUser.username : newUser.username}
           onChange={(e) =>
@@ -119,6 +120,7 @@ const UserManagement = () => {
         />
         <input
           type="email"
+          className="p-2 mt-1"
           placeholder="Email"
           value={editingUser ? editingUser.email : newUser.email}
           onChange={(e) =>
@@ -130,6 +132,7 @@ const UserManagement = () => {
         />
         <select
           value={editingUser ? editingUser.role : newUser.role}
+          className="p-2 mt-1"
           onChange={(e) =>
             editingUser
               ? setEditingUser({ ...editingUser, role: e.target.value })
@@ -140,7 +143,9 @@ const UserManagement = () => {
           <option value="admin">Admin</option>
           <option value="moderator">Moderator</option>
         </select>
-        <button type="submit">
+        <button 
+        className="ml-1 p-2 mt-1 bg-orange-600 text-[#F8F6E3] font-semibold hover:bg-[#114232] hover:text-white"
+        type="submit">
           {editingUser ? "Update User" : "Add User"}
         </button>
       </form>
