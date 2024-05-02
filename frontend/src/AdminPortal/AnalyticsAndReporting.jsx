@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import Pie from "./Pie";
 
 const AnalyticsAndReporting = () => {
   const [performance, setPerformance] = useState(false);
@@ -30,13 +31,14 @@ const AnalyticsAndReporting = () => {
 
   const toggling = () => {
     console.log("toggling");
-    setPerformance(true);
+    setPerformance(!performance);
   };
 
   return (
     <div className="flex flex-col items-center justify-center h-[68vh] w-full space-y-8">
       {performance ? (
         <>
+          <Pie />
         </>
       ) : (
         <>
@@ -58,14 +60,14 @@ const AnalyticsAndReporting = () => {
             <Legend />
             <Bar dataKey="UsersVisited" fill="#8884d8" />
           </BarChart>
-
-          <button 
-          onClick={toggling}
-          className="bg-orange-600 text-[#F8F6E3] font-semibold p-3  rounded-full hover:bg-[#114232] hover:text-white">
-            See the performance of brands
-          </button>
         </>
       )}
+      <button
+        onClick={toggling}
+        className="bg-orange-600 text-[#F8F6E3] font-semibold p-3  rounded-full hover:bg-[#114232] hover:text-white"
+      >
+        {performance ? "Show User Influx" : "Show Brands by Products"}
+      </button>
     </div>
   );
 };
