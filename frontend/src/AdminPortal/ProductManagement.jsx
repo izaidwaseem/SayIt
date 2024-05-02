@@ -6,35 +6,35 @@ const ProductManagement = () => {
       id: 1,
       name: "Black Jeans",
       brand: "Outfitters",
-      rating: "4",
+      rating: "4 ",
       price: 2999,
     },
     {
       id: 2,
       name: "White Pajamas",
       brand: "Engine",
-      rating: "4",
+      rating: "4 ",
       price: 1999,
     },
     {
       id: 3,
       name: "Red Graphic shirt",
       brand: "Breakout",
-      rating: "5",
+      rating: "5 ",
       price: 990,
     },
     {
       id: 4,
       name: "Violet shirt",
       brand: "Outfitters",
-      rating: "3.75",
+      rating: "3.75 ",
       price: 799,
     },
     {
       id: 5,
       name: "Navy blue jeans jacket",
       brand: "Engine",
-      rating: "4",
+      rating: "4 ",
       price: 999,
     },
   ];
@@ -73,9 +73,9 @@ const ProductManagement = () => {
                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                   {product.name}
                 </td>
-                <td className="px-6 py-4 text-gray-900">{product.brand}</td>
-                <td className="px-6 py-4 text-gray-900">{product.rating}</td>
-                <td className="px-6 py-4 text-gray-900">{product.price}</td>
+                <td className="px-6 py-4 text-blue-800 font-semibold text-md">{product.brand}</td>
+                <td className="px-6 py-4 text-white">{product.rating}stars</td>
+                <td className="px-6 py-4 text-white">{product.price}</td>
                 <td className="px-6 py-4">
                   <a
                     href="#"

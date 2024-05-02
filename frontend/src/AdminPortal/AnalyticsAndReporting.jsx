@@ -9,7 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import Pie from "./Pie";
+import Pie from "./Extras/Pie";
 
 const AnalyticsAndReporting = () => {
   const [performance, setPerformance] = useState(false);
