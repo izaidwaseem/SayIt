@@ -10,6 +10,12 @@ const Explore = () => {
   const [perPage, setPerPage] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
 
+  const [selectedOption, setSelectedOption] = useState("Outfitters");
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
   useEffect(() => {
     // Check if the user is logged in (e.g., by checking the presence of a token in localStorage)
     const token = localStorage.getItem("token");
@@ -27,7 +33,6 @@ const Explore = () => {
         );
         setProducts(response.data.products);
         setTotalPages(response.data.totalPages);
-
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
@@ -57,8 +62,6 @@ const Explore = () => {
     }
   };
 
-
-
   // Function to construct Cloudinary image URL
   const getImageUrl = (publicId) => {
     return `https://res.cloudinary.com/dxi8nz8su/image/upload/v1711106600/${publicId}`;
@@ -81,7 +84,9 @@ const Explore = () => {
   if (!isLoggedIn) {
     return (
       <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gradient-to-r from-rose-100 to-teal-100 py-4">
-        <p className="text-lg font-semibold text-gray-800 mb-4">Please log in to access this page.</p>
+        <p className="text-lg font-semibold text-gray-800 mb-4">
+          Please log in to access this page.
+        </p>
         <Link to="/login">
           <button className="bg-[#E97451] text-white px-4 py-2 rounded-lg hover:bg-[#d9452a] focus:outline-none focus:ring-2 focus:ring-[#E97451] focus:ring-opacity-50 transition duration-300 ease-in-out">
             Log in
@@ -125,6 +130,64 @@ const Explore = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             required
           />
+
+          <button
+            id="dropdownDefaultButton"
+            data-dropdown-toggle="dropdown"
+            className="text-white  focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+            type="button"
+          >
+            {selectedOption}
+
+            <svg
+              class="w-2.5 h-2.5 ms-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 10 6"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 1 4 4 4-4"
+              />
+            </svg>
+          </button>
+
+          <div className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+            <ul
+              class="py-2 text-sm text-gray-700 dark:text-gray-200"
+              aria-labelledby="dropdownDefaultButton"
+            >
+              <li
+                onClick={handleOptionChange}
+                className="block px-4 py-2  hover:bg-gray-600 hover:text-white"
+              >
+                Outfitters
+              </li>
+              <li
+                onClick={handleOptionChange}
+                className="block px-4 py-2  hover:bg-gray-600 hover:text-white"
+              >
+                Furor
+              </li>
+              <li
+                onClick={handleOptionChange}
+                className="block px-4 py-2  hover:bg-gray-600 hover:text-white"
+              >
+                Engine
+              </li>
+              <li
+                onClick={handleOptionChange}
+                className="block px-4 py-2  hover:bg-gray-600 hover:text-white"
+              >
+                Diesel
+              </li>
+            </ul>
+          </div>
+
           <button
             type="submit"
             className="text-white absolute end-2.5 bottom-2.5 bg-[#E97451] hover:bg-teal-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2"
@@ -162,7 +225,6 @@ const Explore = () => {
         ) : (
           <p>Loading...</p>
         )}
-
       </div>
       <div className="w-1/3 mx-auto mt-10 mb-10">
         <nav aria-label="Pagination">
@@ -171,8 +233,9 @@ const Explore = () => {
               <button
                 onClick={handlePrevPage}
                 disabled={page === 1}
-                className={`text-[#E97451] ${page === 1 ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
+                className={`text-[#E97451] ${
+                  page === 1 ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               >
                 Prev
               </button>
@@ -184,8 +247,9 @@ const Explore = () => {
               <button
                 onClick={handleNextPage}
                 disabled={page === totalPages}
-                className={`text-[#E97451] ${page === totalPages ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
+                className={`text-[#E97451] ${
+                  page === totalPages ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               >
                 Next
               </button>
@@ -193,7 +257,6 @@ const Explore = () => {
           </ul>
         </nav>
       </div>
-
     </div>
   );
 };
