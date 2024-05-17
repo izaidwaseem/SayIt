@@ -12,29 +12,43 @@ import UserManagement from "./AdminPortal/UserManagement";
 import ProductManagement from "./AdminPortal/ProductManagement";
 import ReviewManagement from "./AdminPortal/ReviewManagement";
 import AnalyticsAndReporting from "./AdminPortal/AnalyticsAndReporting";
-
+import Navbar from "./Components/Navbar";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/">
-          <Route index element={<Landing />} />
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
-          <Route path="generate/:productId" element={<GenerateCoupon />} />
-          <Route path="explore" element={<Explore />} />
-          <Route path="review/:productId" element={<ProductReview />} />
-          <Route path="admin" element={<Admin />} />
-          <Route path="admin/userManagement" element={<UserManagement />} />
-          <Route path="admin/productManagement" element={<ProductManagement />} />
-          <Route path="admin/reviewManagement" element={<ReviewManagement />} />
-          <Route path="admin/analyticsAndReporting" element={<AnalyticsAndReporting />} />
-          
-          <Route path="*" element={<h1>Not Found</h1>} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <div className="h-[100vh]">
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/">
+              <Route index element={<Landing />} />
+              <Route path="login" element={<Login />} />
+              <Route path="signup" element={<Signup />} />
+              <Route path="generate/:productId" element={<GenerateCoupon />} />
+              <Route path="explore" element={<Explore />} />
+              <Route path="review/:productId" element={<ProductReview />} />
+              <Route path="admin" element={<Admin />} />
+              <Route path="admin/userManagement" element={<UserManagement />} />
+              <Route
+                path="admin/productManagement"
+                element={<ProductManagement />}
+              />
+              <Route
+                path="admin/reviewManagement"
+                element={<ReviewManagement />}
+              />
+              <Route
+                path="admin/analyticsAndReporting"
+                element={<AnalyticsAndReporting />}
+              />
+
+              <Route path="*" element={<h1>Not Found</h1>} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </>
   );
 };
 
@@ -46,7 +60,9 @@ const ProductReview = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/getProductById/${productId}`);
+        const response = await axios.get(
+          `http://localhost:3000/getProductById/${productId}`
+        );
         setProduct(response.data);
       } catch (error) {
         console.error("Error fetching product:", error.message);
@@ -66,7 +82,9 @@ const GenerateCoupon = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/getProductById/${productId}`);
+        const response = await axios.get(
+          `http://localhost:3000/getProductById/${productId}`
+        );
         setProduct(response.data);
       } catch (error) {
         console.error("Error fetching product:", error.message);
