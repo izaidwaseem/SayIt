@@ -13,9 +13,9 @@ const AdminPortal = () => {
         <div className="flex justify-center items-center mb-8">
           <h1 className="text-4xl font-semibold text-gray-800">Admin Portal</h1>
         </div>
-        <div className="flex justify-center items-center space-x-4 mb-8 font-semibold">
+        <div className="flex md:flex-row flex-col justify-center items-center space-x-4 space-y-4 mb-8 font-semibold">
           <button
-            className={`bg-orange-600 text-[#F8F6E3] font-semibold p-3  rounded-full hover:bg-[#114232] hover:text-white tab-btn ${
+            className={`bg-orange-600 w-36 mt-3 md:ml-0 ml-3 h-auto text-[#F8F6E3] font-semibold p-3  rounded-lg hover:bg-[#114232] hover:text-white tab-btn ${
               selectedTab === "userManagement" ? "active" : ""
             }`}
             onClick={() => setSelectedTab("userManagement")}
@@ -23,7 +23,7 @@ const AdminPortal = () => {
             User Management
           </button>
           <button
-            className={`bg-orange-600 text-[#F8F6E3] font-semibold p-3  rounded-full hover:bg-[#114232] hover:text-white tab-btn ${
+            className={`bg-orange-600 w-36 h-auto text-[#F8F6E3] font-semibold p-3  rounded-lg hover:bg-[#114232] hover:text-white tab-btn ${
               selectedTab === "productManagement" ? "active" : ""
             }`}
             onClick={() => setSelectedTab("productManagement")}
@@ -31,7 +31,7 @@ const AdminPortal = () => {
             Product Management
           </button>
           <button
-            className={`bg-orange-600 text-[#F8F6E3] font-semibold p-3  rounded-full hover:bg-[#114232] hover:text-white tab-btn ${
+            className={`bg-orange-600 w-36 h-auto text-[#F8F6E3] font-semibold p-3  rounded-lg hover:bg-[#114232] hover:text-white tab-btn ${
               selectedTab === "reviewManagement" ? "active" : ""
             }`}
             onClick={() => setSelectedTab("reviewManagement")}
@@ -39,7 +39,7 @@ const AdminPortal = () => {
             Review Management
           </button>
           <button
-            className={`bg-orange-600 text-[#F8F6E3] font-semibold p-3  rounded-full hover:bg-[#114232] hover:text-white tab-btn ${
+            className={`bg-orange-600 w-36 h-auto text-[#F8F6E3] font-semibold p-3  rounded-lg hover:bg-[#114232] hover:text-white tab-btn ${
               selectedTab === "analyticsAndReporting" ? "active" : ""
             }`}
             onClick={() => setSelectedTab("analyticsAndReporting")}

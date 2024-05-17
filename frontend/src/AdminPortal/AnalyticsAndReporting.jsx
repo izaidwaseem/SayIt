@@ -34,8 +34,25 @@ const AnalyticsAndReporting = () => {
     setPerformance(!performance);
   };
 
+  const isMobile = window.innerWidth <= 768; // Adjust this value for mobile screens
+  const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024; // Adjust this value for tablet screens
+
+  let width, height;
+
+  if (isMobile) {
+    width = 390; // Set mobile width
+    height = 300; // Set mobile height
+  } else if (isTablet) {
+    width = 500; // Set tablet width
+    height = 300; // Set tablet height
+  } else {
+    width = 600; // Set laptop width
+    height = 400; // Set laptop height
+  }
+
+
   return (
-    <div className="flex flex-col items-center justify-center h-[68vh] w-full space-y-8">
+    <div className="flex flex-col items-center justify-center h-[68vh] w-full  space-y-8">
       {performance ? (
         <>
           <Pie />
@@ -43,8 +60,8 @@ const AnalyticsAndReporting = () => {
       ) : (
         <>
           <BarChart
-            width={600}
-            height={400}
+            width={width}
+            height={height}
             data={data}
             margin={{
               top: 5,
