@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
 
 const UserManagement = () => {
-  // State variables for managing users
   const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
   const [editingUser, setEditingUser] = useState(null);
   const [newUser, setNewUser] = useState({
     username: "",
     email: "",
-    role: "regular", // Default role
+    role: "regular",
   });
 
-  // Function to fetch users data from API
   const fetchUsers = async () => {
     try {
-      // Fetch users data from API endpoint
       const response = await fetch("http://localhost:3000/users");
       if (response.ok) {
         const data = await response.json();
@@ -27,67 +23,47 @@ const UserManagement = () => {
     }
   };
 
-  // Function to handle form submission for adding/editing users
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      if (editingUser) {
-        // Perform update operation
-        const response = await fetch(`API_ENDPOINT/users/${editingUser.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(editingUser),
-        });
-        if (response.ok) {
-          // Update user in state
-          const updatedUser = await response.json();
-          const updatedUsers = users.map((user) =>
-            user.id === updatedUser.id ? updatedUser : user
-          );
-          setUsers(updatedUsers);
+      const userData = editingUser || newUser;
+      const method = editingUser ? "PUT" : "POST";
+      const url = editingUser && editingUser._id
+        ? `http://localhost:3000/users/${editingUser._id}`
+        : "http://localhost:3000/users";
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (response.ok) {
+        const updatedUser = await response.json();
+        if (editingUser) {
+          setUsers(users.map((user) => (user._id === updatedUser._id ? updatedUser : user)));
           setEditingUser(null);
         } else {
-          console.error("Failed to update user:", response.statusText);
+          setUsers([...users, updatedUser]);
+          setNewUser({ username: "", email: "", role: "regular" });
         }
       } else {
-        // Perform create operation
-        const response = await fetch("API_ENDPOINT/users", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newUser),
-        });
-        if (response.ok) {
-          // Add new user to state
-          const newUser = await response.json();
-          setUsers([...users, newUser]);
-          setNewUser({
-            username: "",
-            email: "",
-            role: "regular",
-          });
-        } else {
-          console.error("Failed to create user:", response.statusText);
-        }
+        console.error("Failed to submit user:", response.statusText);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
     }
   };
 
-  // Function to handle user deletion
   const handleDelete = async (userId) => {
     try {
-      const response = await fetch(`API_ENDPOINT/users/${userId}`, {
+      const response = await fetch(`http://localhost:3000/users/${userId}`, {
         method: "DELETE",
       });
       if (response.ok) {
-        // Remove deleted user from state
-        const updatedUsers = users.filter((user) => user.id !== userId);
-        setUsers(updatedUsers);
+        setUsers(users.filter((user) => user._id !== userId));
       } else {
         console.error("Failed to delete user:", response.statusText);
       }
@@ -97,65 +73,88 @@ const UserManagement = () => {
   };
 
   useEffect(() => {
-    // Fetch users data when component mounts
     fetchUsers();
   }, []);
 
   return (
-    <div className="user-management  font-bold ">
-      <p className="text-2xl py-2 text-underline">User Management</p>
-      {/* Form for adding/editing users */}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          className="p-2 mt-1"
-          placeholder="Username"
-          value={editingUser ? editingUser.username : newUser.username}
-          onChange={(e) =>
-            editingUser
-              ? setEditingUser({ ...editingUser, username: e.target.value })
-              : setNewUser({ ...newUser, username: e.target.value })
-          }
-          required
-        />
-        <input
-          type="email"
-          className="p-2 mt-1"
-          placeholder="Email"
-          value={editingUser ? editingUser.email : newUser.email}
-          onChange={(e) =>
-            editingUser
-              ? setEditingUser({ ...editingUser, email: e.target.value })
-              : setNewUser({ ...newUser, email: e.target.value })
-          }
-          required
-        />
-        <select
-          value={editingUser ? editingUser.role : newUser.role}
-          className="p-2 mt-1"
-          onChange={(e) =>
-            editingUser
-              ? setEditingUser({ ...editingUser, role: e.target.value })
-              : setNewUser({ ...newUser, role: e.target.value })
-          }
+    <div className="user-management p-6 bg-gradient-to-r from-blue-100 via-blue-300 to-blue-500 rounded-lg shadow-lg">
+      <h2 className="text-3xl font-bold mb-4">User Management</h2>
+      <form onSubmit={handleSubmit} className="mb-6">
+        <div className="mb-4">
+          <input
+            type="text"
+            className="p-2 w-full border border-gray-300 rounded-md"
+            placeholder="Username"
+            value={editingUser ? editingUser.username : newUser.username}
+            onChange={(e) =>
+              editingUser
+                ? setEditingUser({ ...editingUser, username: e.target.value })
+                : setNewUser({ ...newUser, username: e.target.value })
+            }
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <input
+            type="email"
+            className="p-2 w-full border border-gray-300 rounded-md"
+            placeholder="Email"
+            value={editingUser ? editingUser.email : newUser.email}
+            onChange={(e) =>
+              editingUser
+                ? setEditingUser({ ...editingUser, email: e.target.value })
+                : setNewUser({ ...newUser, email: e.target.value })
+            }
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <select
+            value={editingUser ? editingUser.role : newUser.role}
+            className="p-2 w-full border border-gray-300 rounded-md"
+            onChange={(e) =>
+              editingUser
+                ? setEditingUser({ ...editingUser, role: e.target.value })
+                : setNewUser({ ...newUser, role: e.target.value })
+            }
+          >
+            <option value="regular">Regular User</option>
+            <option value="admin">Admin</option>
+            <option value="moderator">Moderator</option>
+          </select>
+        </div>
+        <button
+          className="w-full p-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700"
+          type="submit"
         >
-          <option value="regular">Regular User</option>
-          <option value="admin">Admin</option>
-          <option value="moderator">Moderator</option>
-        </select>
-        <button 
-        className="ml-1 p-2 mt-1 bg-orange-600 text-[#F8F6E3] font-semibold hover:bg-[#114232] hover:text-white"
-        type="submit">
           {editingUser ? "Update User" : "Add User"}
         </button>
       </form>
-      {/* Display list of users */}
-      <ul>
+      <ul className="space-y-4">
         {users.map((user) => (
-          <li key={user.id}>
-            {user.username} - {user.email} - {user.role}
-            <button onClick={() => setEditingUser(user)}>Edit</button>
-            <button onClick={() => handleDelete(user.id)}>Delete</button>
+          <li
+            key={user._id}
+            className="p-4 bg-white rounded-md shadow flex justify-between items-center"
+          >
+            <div>
+              <p className="font-semibold text-lg">{user.username}</p>
+              <p className="text-gray-600">{user.email}</p>
+              <p className="text-gray-500">{user.role}</p>
+            </div>
+            <div className="space-x-2">
+              <button
+                onClick={() => setEditingUser(user)}
+                className="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDelete(user._id)}
+                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+              >
+                Delete
+              </button>
+            </div>
           </li>
         ))}
       </ul>

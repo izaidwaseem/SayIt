@@ -1,10 +1,10 @@
 import React from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
-const Polarity = () => {
+const Polarity = ({ positiveReviews, negativeReviews }) => {
   const data = [
-    { name: "Positive Reviews", value: 60, color: "#82ca9d" },
-    { name: "Negative Reviews", value: 40, color: "#ff6347" },
+    { name: "Positive Reviews", value: positiveReviews, color: "#82ca9d" },
+    { name: "Negative Reviews", value: negativeReviews, color: "#ff6347" },
   ];
 
   const COLORS = ["#82ca9d", "#ff6347"];

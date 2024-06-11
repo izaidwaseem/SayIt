@@ -1,1 +1,5 @@
 node_modules/
+
+# Virtual Environment
+venv/
+convert_env/

@@ -1,0 +1,124 @@
+/* src/Sidebar.css
+.sidebar {
+  width: 250px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-right: 1px solid #e0e0e0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-section h3 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.filter-section div {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.filter-section input[type="checkbox"],
+.filter-section input[type="radio"] {
+  margin-right: 10px;
+}
+
+.filter-section label {
+  font-size: 1rem;
+  color: #555;
+}
+
+.filter-section select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 1rem;
+  color: #333;
+}
+
+.filter-section select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+} */
+
+/* src/Sidebar.css */
+.sidebar {
+  width: 260px;
+  padding: 25px;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebar:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.filter-section {
+  margin-bottom: 25px;
+}
+
+.filter-section h3 {
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+  color: #333;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.filter-section div {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.filter-section input[type="checkbox"],
+.filter-section input[type="radio"] {
+  margin-right: 12px;
+  accent-color: #007bff;
+}
+
+.filter-section label {
+  font-size: 1rem;
+  color: #555;
+  cursor: pointer;
+}
+
+.filter-section select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  font-size: 1rem;
+  color: #333;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.filter-section select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+.filter-section input[type="checkbox"]:hover,
+.filter-section input[type="radio"]:hover,
+.filter-section select:hover {
+  border-color: #007bff;
+}
+
+.filter-section label:hover {
+  color: #007bff;
+}
