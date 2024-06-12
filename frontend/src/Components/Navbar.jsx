@@ -77,10 +77,16 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/pricing" className="text-black hover:text-gray-800">
+                  Pricing
+                </Link>
+              </li>
+              <li>
                 <Link to="/admin" className="text-black hover:text-gray-800">
                   Admin
                 </Link>
               </li>
+
               <li>
                 <button
                   onClick={handleLogout}
