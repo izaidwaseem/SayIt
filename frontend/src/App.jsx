@@ -16,6 +16,7 @@ import AnalyticsAndReporting from "./AdminPortal/AnalyticsAndReporting";
 import Navbar from "./Components/Navbar";
 import EditProduct from './AdminPortal/EditProduct';
 import Predict from "./Predict/Predict";
+import Pricing from "./Components/Pricing";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="/products/edit/:id" element={<EditProduct />} />
           <Route path="admin/reviewManagement" element={<ReviewManagement />} />
           <Route path="admin/analyticsAndReporting" element={<AnalyticsAndReporting />} />
+          <Route path="pricing" element={<Pricing />} />
           <Route path="*" element={<h1>Not Found</h1>} />
           <Route path="/predict" element={<Predict />} />
         </Routes>
