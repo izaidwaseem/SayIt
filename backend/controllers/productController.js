@@ -264,7 +264,7 @@ const addReview = async (req, res) => {
 
     // Calculate the new average rating
     const totalRatings = product.reviews.reduce((acc, review) => acc + review.rating, 0);
-    product.rating = totalRatings / product.reviews.length;
+    product.rating = Number((totalRatings / product.reviews.length).toFixed(2));
 
     await product.save();
 

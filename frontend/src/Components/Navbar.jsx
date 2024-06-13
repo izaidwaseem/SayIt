@@ -17,11 +17,11 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="border-gray-200 bg-gradient-to-r from-yellow-100 via-yellow-300 to-yellow-500">
-        <div className="w-full flex flex-wrap items-center justify-between mx-auto p-4">
+      <nav className="border-gray-200 bg-[#310055]">
+        <div className="w-full flex flex-wrap items-center justify-between mx-auto p-2">
           <a className="flex items-center space-x-3">
             <img src="nav.png" className="h-16" alt="Logo" />
-            <span className="self-center text-2xl font-bold whitespace-nowrap text-black">
+            <span className="self-center text-2xl font-bold whitespace-nowrap text-white">
               SayIt
             </span>
           </a>
@@ -55,34 +55,34 @@ const Navbar = () => {
             } w-full md:block md:w-auto`}
             id="navbar-default"
           >
-            <ul className="text-lg flex flex-col p-4 md:p-0 mt-6 border border-gray-500 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
+            <ul className="text-lg text-white flex flex-col p-4 md:p-0 mt-6 border border-gray-500 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
               <li>
-                <Link to="/" className="text-black hover:text-gray-800">
+                <Link to="/" className=" hover:text-[#DC97FF]">
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/explore" className="text-black hover:text-gray-800">
+                <Link to="/explore" className="hover:text-[#DC97FF]">
                   Explore
                 </Link>
               </li>
               <li>
-                <Link to="/login" className="text-black hover:text-gray-800">
+                <Link to="/login" className=" hover:text-[#DC97FF]">
                   Login
                 </Link>
               </li>
               <li>
-                <Link to="/signup" className="text-black hover:text-gray-800">
+                <Link to="/signup" className=" hover:text-[#DC97FF]">
                   Signup
                 </Link>
               </li>
               <li>
-                <Link to="/pricing" className="text-black hover:text-gray-800">
+                <Link to="/pricing" className=" hover:text-[#DC97FF]">
                   Pricing
                 </Link>
               </li>
               <li>
-                <Link to="/admin" className="text-black hover:text-gray-800">
+                <Link to="/admin" className=" hover:text-[#DC97FF]">
                   Admin
                 </Link>
               </li>
@@ -90,7 +90,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center text-black hover:text-gray-800 focus:outline-none"
+                  className="flex items-center text-white hover:text-[#DC97FF] focus:outline-none"
                 >
                   <i className="fas fa-sign-out-alt mr-2"></i>Logout
                 </button>

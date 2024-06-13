@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Sidebar from "../Sidebar/Sidebar.jsx";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { CiStar } from "react-icons/ci";
+
 
 const Explore = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,6 +15,7 @@ const Explore = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [selectedOption, setSelectedOption] = useState("Outfitters");
   const [filters, setFilters] = useState({ brands: [], gender: "", type: "" });
+  const [toggle, setToggle] = useState(false);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -114,14 +118,25 @@ const Explore = () => {
   }
 
   return (
-    <div className="flex">
-      <Sidebar
-        brands={["Outfitters", "Engine", "Furor"]}
-        onFilterChange={handleFilterChange}
-        genderOptions={["Men", "Women"]}
-      />
-      <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gradient-to-r from-rose-100 to-teal-100 py-4">
-        <a href="/explore" className="font-bold text-5xl text-[#87A922] mt-10">
+    <div className="flex bg-[#F0F8FF]">
+
+
+      {toggle ? <>
+        <Sidebar
+          brands={["Outfitters", "Engine", "Furor"]}
+          onFilterChange={handleFilterChange}
+          genderOptions={["Men", "Women"]}
+        />
+      </> :
+        <>
+          <GiHamburgerMenu
+            className="mt-2 ml-2 text-4xl cursor-pointer text-black font-extrabold"
+            onClick={() => setToggle(true)}
+          />
+        </>}
+
+      <div className="flex flex-col items-center justify-center w-full min-h-screen bg-[#F0F8FF] py-4">
+        <a href="/explore" className="font-bold text-5xl text-[#3C0663] mt-10">
           Explore Clothes
         </a>
 
@@ -156,7 +171,7 @@ const Explore = () => {
 
             <button
               type="submit"
-              className="text-white absolute end-2.5 bottom-2.5 bg-[#E97451] hover:bg-teal-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2"
+              className="absolute end-2.5 bottom-2.5 bg-[#3C0663] text-[#F8F6E3] hover:bg-teal-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2"
             >
               Search
             </button>
@@ -169,17 +184,21 @@ const Explore = () => {
               <Link
                 to={`/review/${product._id}`}
                 key={product._id}
-                className="flex flex-col items-center justify-center rounded-lg shadow bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100 w-2/6 h-88"
+                className="flex md:flex-col flex-row items-center justify-center rounded-lg shadow bg-[#E6D0DC] lg:w-2/6 w-[90%] h-88"
               >
-                <div key={product._id}>
+                <div className="p-2 w-full h-full flex flex-col items-center justify-center" key={product._id}>
                   <img
                     src={getImageUrl(product.imagePath)}
-                    className="w-[90%]"
+                    className="w-[300px] h-[390px] mt-4"
                     alt={product.name}
                   />
-                  <p className="font-bold text-2xl text-[#87A922] mb-10">
+                  <p className="font-bold text-2xl text-[#3C0663] ">
                     {product.name}
                   </p>
+                  <p className="text-[#3C0663] underline">{product.brand}</p>
+                  <div className="flex flex-row gap-1 w-full items-center justify-center">   <p className="text-[#3C0663] py-2">{product.rating}</p>
+                  <p><CiStar className="text-2xl text-yellow-600" /></p>
+                  </div>
                   <Link to={`/generate/${product._id}`}>
                     <button className="text-white bg-[#E97451] hover:bg-teal-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2">
                       Get discount code
@@ -199,11 +218,10 @@ const Explore = () => {
                 <button
                   onClick={handlePrevPage}
                   disabled={page === 1}
-                  className={`px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg ${
-                    page === 1
-                      ? "opacity-50 cursor-not-allowed"
-                      : "hover:bg-gray-100 hover:text-gray-700"
-                  }`}
+                  className={`px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg ${page === 1
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:bg-gray-100 hover:text-gray-700"
+                    }`}
                 >
                   Previous
                 </button>
@@ -212,11 +230,10 @@ const Explore = () => {
                 <button
                   onClick={handleNextPage}
                   disabled={page === totalPages}
-                  className={`px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg ${
-                    page === totalPages
-                      ? "opacity-50 cursor-not-allowed"
-                      : "hover:bg-gray-100 hover:text-gray-700"
-                  }`}
+                  className={`px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg ${page === totalPages
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:bg-gray-100 hover:text-gray-700"
+                    }`}
                 >
                   Next
                 </button>

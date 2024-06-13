@@ -18,7 +18,7 @@ const Polarity = ({ positiveReviews, negativeReviews }) => {
   return (
     <>
       <button
-        className="mt-2 text-white bg-[#E97451] hover:bg-teal-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 "
+        className="mt-2 bg-[#3C0663] text-[#F8F6E3] hover:bg-teal-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 "
         onClick={toggleModal}
       >
         See Reviews Polarity

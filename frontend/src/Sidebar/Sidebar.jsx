@@ -103,7 +103,7 @@ const Sidebar = ({ brands, onFilterChange, genderOptions }) => {
   return (
     <div className="sidebar">
       <div className="filter-section">
-        <h3>Brands</h3>
+        <h3 className="text-[#3C0663]">Brands</h3>
         {brands.map((brand) => (
           <div key={brand}>
             <input
@@ -117,7 +117,7 @@ const Sidebar = ({ brands, onFilterChange, genderOptions }) => {
         ))}
       </div>
       <div className="filter-section">
-        <h3>Gender</h3>
+        <h3 className="text-[#3C0663]">Gender</h3>
         {genderOptions.map((gender) => (
           <div key={gender}>
             <input
@@ -133,7 +133,7 @@ const Sidebar = ({ brands, onFilterChange, genderOptions }) => {
         ))}
       </div>
       <div className="filter-section">
-        <h3>Type</h3>
+        <h3 className="text-[#3C0663]">Type</h3>
         <select
           value={selectedType}
           onChange={(e) => handleTypeChange(e.target.value)}

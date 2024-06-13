@@ -90,26 +90,26 @@ const Review = ({ product }) => {
     <Scrollbars style={{ width: "100vw", height: "100vh" }}>
       <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gradient-to-r from-rose-100 to-teal-100 py-4">
         <div className="flex lg:flex-row flex-col w-full justify-between">
-          <div className="border border-green-400 rounded-lg w-[48%] p-6 bg-[#FFFFFF] flex flex-col items-center justify-center height-[100%]">
+          <div className="border border-purple-200 rounded-lg md:w-[48%] w-[100%] p-6 bg-[#FFFFFF] flex flex-col items-center justify-center height-[100%]">
             <img src={getImageUrl(imagePath)} className="w-[100%] h-auto" alt={name} />
           </div>
 
-          <div className="w-[48%] p-6 text-lg font-bold text-[#87A922] bg-gray-200 flex flex-col gap-4 items-start justify-center height-[100%]">
-            <p className="font-extrabold size-2xl text-underline ">{name}</p>
+          <div className="md:w-[48%] w-[100%] p-6 text-lg font-bold text-[#3C0663] bg-gray-200 flex flex-col gap-4 items-start justify-center height-[100%]">
+            <p className="font-extrabold text-black size-2xl text-underline ">{name}</p>
             <p>{description}</p>
-            <p>Price: {price}RS</p>
-            <p>Rating: {rating.toFixed(1)}</p>
-            <p>Brand: {brand}</p>
+            <p><span className="text-black">Price: </span> {price}RS</p>
+            <p><span className="text-black">Rating: </span> {rating.toFixed(1)}</p>
+            <p><span className="text-black">Brand:</span> {brand}</p>
             {category.length > 0 && (
-              <p>Category: {category[0].gender}, {category[0].type}</p>
+              <p><span className="text-black">Category: </span> {category[0].gender}, {category[0].type}</p>
             )}
-            <p>Reviews:</p>
+            <p className="mt-4">Reviews:</p>
             {reviews.length > 0 && (
               <>
-                <p>{reviews[0].reviewer}</p>
+                <p className="text-black text-xl font-semibold ">{reviews[0].reviewer}</p>
                 <p>{reviews[0].review}</p>
                 <button
-                  className="bg-red-500 text-white font-semibold py-1 px-3 rounded-full hover:bg-red-600"
+                  className="bg-[#3C0663] text-[#F8F6E3] font-semibold py-1 px-3 rounded-[10px] hover:bg-red-600"
                   onClick={() => handleDeleteReview(reviews[0]._id)}
                 >
                   Delete
@@ -117,13 +117,13 @@ const Review = ({ product }) => {
               </>
             )}
             <button
-              className="bg-transparent text-black font-bold py-2 px-4"
+              className="bg-transparent text-black font-bold py-2  mr-4"
               onClick={toggleModal}
             >
               read more...
             </button>
             {isOpen && (
-              <div className="fixed inset-0 flex items-center justify-center z-50">
+              <div className="fixed inset-0 md:w-[50%] w-full flex flex-col items-center z-50">
                 <div className="absolute inset-0 bg-gray-500 opacity-50"></div>
                 <div className="bg-white rounded-lg p-8 z-50 overflow-y-auto custom-scrollbar">
                   <div className="flex justify-end">
@@ -137,13 +137,13 @@ const Review = ({ product }) => {
                     {reviews.slice(1).map((review, index) => (
                       <div
                         key={index}
-                        className={`bg-transparent text-green-500 p-4 flex flex-col items-center gap-2 w-11/12`}
+                        className={`bg-transparent text-green-500 p-4 flex flex-col justify-center items-center gap-2 w-11/12`}
                       >
-                        <div className="bg-gradient-to-r from-indigo-200 via-red-100 to-yellow-100 p-4 rounded-md w-2/3">
-                          <p className="text-black">{review.reviewer}</p>
-                          <p>{review.review}</p>
+                        <div className="bg-gradient-to-r from-violet-400 to-purple-300 p-4 rounded-md w-full">
+                          <p className="text-black uppercase">{review.reviewer}</p>
+                          <p className="py-2 text-[black]">{review.review}</p>
                           <button
-                            className="bg-red-500 text-white font-semibold py-1 px-3 rounded-full hover:bg-red-600"
+                            className="w-[50%] bg-[#FFB8CE] text-[#F8F6E3] mt-2 font-semibold align-center py-1 px-3 rounded-full hover:bg-red-600"
                             onClick={() => handleDeleteReview(review._id)}
                           >
                             Delete
@@ -153,7 +153,7 @@ const Review = ({ product }) => {
                     ))}
                   </div>
 
-                  <form onSubmit={() => handleAddReview(product._id)} className="w-full flex flex-col items-center gap-4">
+                  <form onSubmit={() => handleAddReview(product._id)} className=" w-full flex flex-col items-center gap-4">
                     <input
                       type="text"
                       placeholder="Your Name"
@@ -172,7 +172,7 @@ const Review = ({ product }) => {
                     />
                     <StarRating rating={reviewRating} setRating={setReviewRating} /> {/* Add the StarRating component */}
                     <div className="flex flex-col gap-4 w-[70%]">
-                      <button type="submit" className="text-white bg-[#E97451] hover:bg-teal-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2">
+                      <button type="submit" className="bg-[#3C0663] text-[#F8F6E3] hover:bg-teal-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2">
                         Add Review
                       </button>
                       <Polarity positiveReviews={positiveReviews} negativeReviews={negativeReviews} />

@@ -49,17 +49,19 @@ const Signup = () => {
   };
   
   return (
-    <div className="flex w-full items-center justify-center min-h-screen bg-gradient-to-r from-indigo-200 via-red-100 to-yellow-100  ">
+    <div className="flex w-full items-center justify-center min-h-screen bg-[#F0F8FF] ">
       <div className="w-[40%] lg:block hidden">
       <ScrollReveal>
         <img src="hanger.png" alt="logo" className="w-[90%] h-auto" />
       </ScrollReveal>
       </div>
-      <div className="flex flex-col items-center justify-center gap-8 lg:w-1/2 w-full px-6 py-4">
-        <div className="bg-[#FFFFFF] flex flex-col items-center justify-center w-full gap-4 rounded-lg text-[#31363F] bg-opacity-80 p-4">
+      <div className="md:w-[10%] w-0" ></div>
+    
+      <div className="flex flex-col items-center justify-center gap-8 lg:w-[40%] w-full px-6 py-4">
+        <div className="bg-[#F4E9E8] flex flex-col items-center justify-center w-full gap-4 rounded-lg text-[#31363F] bg-opacity-80 p-4">
         <ScrollReveal>
-          <p className="text-center text-[#87A922] font-bold text-3xl italic mt-4">SayIt</p>
-          <p className="text-xl text-[#87A922] font-semibold italic">Where Apparel Meets Opinions</p>
+          <p className="text-center text-[#3C0663] font-bold text-3xl italic mt-4">SayIt</p>
+          <p className="text-xl text-[#3C0663] font-semibold italic">Where Apparel Meets Opinions</p>
         </ScrollReveal>
 
           <p className="text-black text-lg font-semibold">Username</p>
@@ -92,7 +94,7 @@ const Signup = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
           <button
-            className="bg-[#E97451] text-white font-semibold p-2 md:w-[30%] w-[50%] rounded-full hover:bg-[#114232] hover:text-white"
+            className="bg-[#3C0663] text-[#F8F6E3] font-semibold p-2 md:w-[30%] w-[50%] rounded-full hover:bg-[#114232] hover:text-white"
             onClick={handleSignup}
             disabled={loading} // Disable the button when loading
           >
@@ -106,7 +108,7 @@ const Signup = () => {
           <p>Already have an account💨 </p>
           <button
             onClick={() => (window.location.href = "/login")}
-            className="bg-[#E97451] text-white font-semibold p-2 md:w-[30%] w-[50%] rounded-full hover:bg-[#114232] hover:text-white mb-2"
+            className="bg-[#3C0663] text-[#F8F6E3] font-semibold p-2 md:w-[30%] w-[50%] rounded-full hover:bg-[#114232] hover:text-white mb-2"
           >
             Login
           </button>
