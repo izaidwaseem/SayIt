@@ -17,6 +17,7 @@ const Review = ({ product }) => {
   const [positiveReviews, setPositiveReviews] = useState(0);
   const [negativeReviews, setNegativeReviews] = useState(0);
   const [reviews, setReviews] = useState(initialReviews);
+  const [totalReviews, setTotalReviews] = useState(0); // State for total reviews
 
   useEffect(() => {
     const fetchReviewPredictions = async () => {
@@ -34,7 +35,18 @@ const Review = ({ product }) => {
       }
     };
 
+    const fetchTotalReviews = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/products/${_id}/totalReviews`);
+        const data = await response.json();
+        setTotalReviews(data.totalReviews);
+      } catch (error) {
+        console.error('Error fetching total reviews:', error);
+      }
+    };
+
     fetchReviewPredictions();
+    fetchTotalReviews();
   }, [_id]);
 
   const handleAddReview = async (productId) => {
@@ -44,7 +56,7 @@ const Review = ({ product }) => {
         review: reviewText,
         rating: reviewRating // Include the rating in the review object
       };
-  
+
       const response = await fetch(`http://localhost:3000/${productId}/addReview`, {
         method: 'POST',
         headers: {
@@ -52,10 +64,11 @@ const Review = ({ product }) => {
         },
         body: JSON.stringify(newReview)
       });
-  
+
       if (response.ok) {
         const updatedProduct = await response.json();
         setReviews([...reviews, updatedProduct.reviews[updatedProduct.reviews.length - 1]]);
+        setTotalReviews(totalReviews + 1); // Update the total reviews count
         toggleModal();
       } else {
         console.error('Failed to add review:', response.statusText);
@@ -64,7 +77,6 @@ const Review = ({ product }) => {
       console.error('Error adding review:', error.message);
     }
   };
-  
 
   const handleDeleteReview = async (reviewId) => {
     try {
@@ -74,6 +86,7 @@ const Review = ({ product }) => {
 
       if (response.ok) {
         setReviews(reviews.filter(review => review._id !== reviewId));
+        setTotalReviews(totalReviews - 1); // Update the total reviews count
       } else {
         console.error('Failed to delete review:', response.statusText);
       }
@@ -103,6 +116,7 @@ const Review = ({ product }) => {
             {category.length > 0 && (
               <p><span className="text-black">Category: </span> {category[0].gender}, {category[0].type}</p>
             )}
+            <p><span className="text-black">Total Reviews: </span> {totalReviews}</p> {/* Display total reviews */}
             <p className="mt-4">Reviews:</p>
             {reviews.length > 0 && (
               <>
@@ -143,7 +157,7 @@ const Review = ({ product }) => {
                           <p className="text-black uppercase">{review.reviewer}</p>
                           <p className="py-2 text-[black]">{review.review}</p>
                           <button
-                            className="w-[50%] bg-[#FFB8CE] text-[#F8F6E3] mt-2 font-semibold align-center py-1 px-3 rounded-full hover:bg-red-600"
+                            className="w-[20%] bg-[#FFB8CE] text-[#F8F6E3] mt-2 font-semibold align-center py-1  rounded-full hover:bg-red-600"
                             onClick={() => handleDeleteReview(review._id)}
                           >
                             Delete

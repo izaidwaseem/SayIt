@@ -6,7 +6,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { CiStar } from "react-icons/ci";
 
 
-const Explore = () => {
+const Explore = ({ toggle, setToggle }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,7 +15,6 @@ const Explore = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [selectedOption, setSelectedOption] = useState("Outfitters");
   const [filters, setFilters] = useState({ brands: [], gender: "", type: "" });
-  const [toggle, setToggle] = useState(false);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -121,26 +120,21 @@ const Explore = () => {
     <div className="flex bg-[#F0F8FF]">
 
 
-      {toggle ? <>
+      {toggle && (
         <Sidebar
           brands={["Outfitters", "Engine", "Furor"]}
           onFilterChange={handleFilterChange}
           genderOptions={["Men", "Women"]}
         />
-      </> :
-        <>
-          <GiHamburgerMenu
-            className="mt-2 ml-2 text-4xl cursor-pointer text-black font-extrabold"
-            onClick={() => setToggle(true)}
-          />
-        </>}
+      )}
+
 
       <div className="flex flex-col items-center justify-center w-full min-h-screen bg-[#F0F8FF] py-4">
         <a href="/explore" className="font-bold text-5xl text-[#3C0663] mt-10">
           Explore Clothes
         </a>
 
-        <form className="w-1/3 mx-auto mt-10" onSubmit={handleSubmit}>
+        <form className="md:w-1/3 w-[90%] mx-auto mt-10" onSubmit={handleSubmit}>
           <div className="relative">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
               <svg
@@ -181,64 +175,61 @@ const Explore = () => {
         <div className="flex flex-wrap justify-center gap-8 mt-10">
           {products.length > 0 ? (
             products.map((product) => (
-              <Link
-                to={`/review/${product._id}`}
+              <div
                 key={product._id}
                 className="flex md:flex-col flex-row items-center justify-center rounded-lg shadow bg-[#E6D0DC] lg:w-2/6 w-[90%] h-88"
               >
-                <div className="p-2 w-full h-full flex flex-col items-center justify-center" key={product._id}>
-                  <img
-                    src={getImageUrl(product.imagePath)}
-                    className="w-[300px] h-[390px] mt-4"
-                    alt={product.name}
-                  />
-                  <p className="font-bold text-2xl text-[#3C0663] ">
-                    {product.name}
-                  </p>
+                <div className="p-2 w-full h-full flex flex-col items-center justify-center">
+                  <Link to={`/review/${product._id}`}>
+                    <img
+                      src={getImageUrl(product.imagePath)}
+                      className="w-[330px] h-[420px] mt-4"
+                      alt={product.name}
+                    />
+                  </Link>
+                  <p className="font-bold text-2xl text-[#3C0663] ">{product.name}</p>
                   <p className="text-[#3C0663] underline">{product.brand}</p>
-                  <div className="flex flex-row gap-1 w-full items-center justify-center">   <p className="text-[#3C0663] py-2">{product.rating}</p>
-                  <p><CiStar className="text-2xl text-yellow-600" /></p>
+                  <div className="flex flex-row gap-1 w-full items-center justify-center">
+                    <p className="text-[#3C0663] py-2">{product.rating}</p>
+                    <p><CiStar className="text-2xl text-yellow-600" /></p>
                   </div>
                   <Link to={`/generate/${product._id}`}>
-                    <button className="text-white bg-[#E97451] hover:bg-teal-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2">
+                    <button className="bg-[#3C0663] text-[#F8F6E3] hover:bg-teal-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2">
                       Get discount code
                     </button>
                   </Link>
                 </div>
-              </Link>
+              </div>
             ))
           ) : (
             <p>Loading...</p>
           )}
+
         </div>
-        <div className="w-1/3 mx-auto mt-10 mb-10">
+        <div className="w-full items-center justify-center mx-auto mt-10 mb-10">
           <nav aria-label="Page navigation example">
-            <ul className="inline-flex items-center -space-x-px">
-              <li>
-                <button
+            <div className=" w-full flex flex-row items-center justify-center">
+                 <button
                   onClick={handlePrevPage}
                   disabled={page === 1}
-                  className={`px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg ${page === 1
+                  className={`px-3 py-2 ml-0 text-zinc-700  bg-[#FFCBCB] leading-tight  border border-gray-300 rounded-l-lg ${page === 1
                     ? "opacity-50 cursor-not-allowed"
                     : "hover:bg-gray-100 hover:text-gray-700"
                     }`}
                 >
                   Previous
                 </button>
-              </li>
-              <li>
                 <button
                   onClick={handleNextPage}
                   disabled={page === totalPages}
-                  className={`px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg ${page === totalPages
+                  className={`px-3 py-2 leading-tight text-white bg-[#3C0663] border border-gray-300 rounded-r-lg ${page === totalPages
                     ? "opacity-50 cursor-not-allowed"
                     : "hover:bg-gray-100 hover:text-gray-700"
                     }`}
                 >
                   Next
                 </button>
-              </li>
-            </ul>
+               </div>
           </nav>
         </div>
       </div>

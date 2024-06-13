@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+import { GiHamburgerMenu } from "react-icons/gi";
 
-const Navbar = () => {
+
+
+const Navbar = ({setToggle}) => {
+  const location = useLocation();
   const [isNavOpen, setIsNavOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -20,15 +25,23 @@ const Navbar = () => {
       <nav className="border-gray-200 bg-[#310055]">
         <div className="w-full flex flex-wrap items-center justify-between mx-auto p-2">
           <a className="flex items-center space-x-3">
+
+            {location.pathname === '/explore' && (
+              <GiHamburgerMenu
+                className="mt-2 ml-2 text-4xl cursor-pointer text-white font-extrabold"
+                onClick={() => setToggle(prevToggle => !prevToggle)}/>
+            )}
             <img src="nav.png" className="h-16" alt="Logo" />
-            <span className="self-center text-2xl font-bold whitespace-nowrap text-white">
-              SayIt
-            </span>
-          </a>
+
+
+            <Link to="/" className="self-center cursor-pointer text-2xl font-bold whitespace-nowrap text-white">
+                  SayIt
+                </Link>
+             </a>
           <button
             onClick={toggleNav}
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-md rounded-lg md:hidden focus:outline-none focus:ring-2 text-gray-800 hover:bg-gray-700 focus:ring-gray-600"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-md rounded-lg md:hidden focus:outline-none focus:ring-2 text-white hover:bg-gray-700 focus:ring-gray-600"
             aria-controls="navbar-default"
             aria-expanded="false"
           >
@@ -50,9 +63,8 @@ const Navbar = () => {
             </svg>
           </button>
           <div
-            className={`${
-              isNavOpen ? "block" : "hidden"
-            } w-full md:block md:w-auto`}
+            className={`${isNavOpen ? "block" : "hidden"
+              } w-full md:block md:w-auto`}
             id="navbar-default"
           >
             <ul className="text-lg text-white flex flex-col p-4 md:p-0 mt-6 border border-gray-500 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">

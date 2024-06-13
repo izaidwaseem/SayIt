@@ -31,8 +31,8 @@ const ProductManagement = () => {
   return (
     <div>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-md uppercase bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 text-gray-600 border-b border-black">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-400">
+          <thead className="text-md uppercase bg-[#DC97FF] text-black text-gray-600 border-b border-black">
             <tr>
               <th scope="col" className="px-6 py-3">Product name</th>
               <th scope="col" className="px-6 py-3">Brand</th>
@@ -47,8 +47,8 @@ const ProductManagement = () => {
                 key={product._id}
                 className={
                   index % 2 === 0
-                    ? "odd:bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400"
-                    : "even:bg-gradient-to-r from-red-400 via-gray-300 to-blue-500"
+                    ? "odd:bg-[#CCEAEA]"
+                    : "even:bg-[#F1E7F7]"
                 }
               >
                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
@@ -57,12 +57,12 @@ const ProductManagement = () => {
                 <td className="px-6 py-4 text-blue-800 font-semibold text-md">
                   {product.brand}
                 </td>
-                <td className="px-6 py-4 text-white">{product.rating} stars</td>
-                <td className="px-6 py-4 text-white">{product.price}</td>
+                <td className="px-6 py-4 text-black">{product.rating} stars</td>
+                <td className="px-6 py-4 text-black">{product.price}</td>
                 <td className="px-6 py-4">
                   <Link
                     to={`/products/edit/${product._id}`}
-                    className="font-semibold text-lg text-white hover:underline"
+                    className="font-semibold text-lg text-black hover:underline"
                   >
                     Edit
                   </Link>

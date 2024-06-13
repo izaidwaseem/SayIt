@@ -77,6 +77,7 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
 
+
 const Sidebar = ({ brands, onFilterChange, genderOptions }) => {
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedGender, setSelectedGender] = useState("");
@@ -103,6 +104,7 @@ const Sidebar = ({ brands, onFilterChange, genderOptions }) => {
   return (
     <div className="sidebar">
       <div className="filter-section">
+        
         <h3 className="text-[#3C0663]">Brands</h3>
         {brands.map((brand) => (
           <div key={brand}>

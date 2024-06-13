@@ -4,7 +4,6 @@ const path = require('path');
 const fs = require('fs');
 const csv = require('csv-parser');
 const mongoose = require('mongoose');
-// const upload = require('../config/multerConfig');
 const multer = require('multer');
 
 
@@ -110,8 +109,6 @@ const insertProductsFromCSV = async (req, res) => {
     res.status(500).json({ error: 'Failed to insert data into MongoDB.' });
   }
 };
-
-
 
 const getAllProducts = async (req, res) => {
   try {
@@ -371,6 +368,24 @@ const deleteReview = async (req, res) => {
   }
 };
 
+// Add this function to productController.js
+const getTotalReviews = async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    const totalReviews = product.reviews.length;
+    res.json({ totalReviews });
+  } catch (error) {
+    console.error('Error fetching total reviews:', error);
+    res.status(500).json({ error: 'Failed to fetch total reviews' });
+  }
+};
+
 module.exports = { 
   insertProductsFromCSV, 
   getAllProducts, 
@@ -383,8 +398,10 @@ module.exports = {
   filterProducts, 
   updateProduct, 
   getProductsCountByBrand, 
-  deleteReview // Export the deleteReview function
+  deleteReview, 
+  getTotalReviews 
 };
+
 
 
 

@@ -19,16 +19,18 @@ import Predict from "./Predict/Predict";
 import Pricing from "./Components/Pricing";
 
 const App = () => {
+  
+  const [toggle,setToggle] = useState(false);
   return (
     <div className="h-[100vh]">
       <BrowserRouter>
-        <Navbar />
+        <Navbar setToggle={setToggle} />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="generate/:productId" element={<GenerateCoupon />} />
-          <Route path="explore" element={<Explore />} />
+          <Route path="explore" element={<Explore toggle={toggle} setToggle={setToggle} />} />
           <Route path="review/:productId" element={<ProductReview />} />
           <Route path="admin" element={<Admin />} />
           <Route path="admin/userManagement" element={<UserManagement />} />

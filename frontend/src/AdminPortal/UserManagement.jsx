@@ -77,7 +77,7 @@ const UserManagement = () => {
   }, []);
 
   return (
-    <div className="user-management p-6 bg-gradient-to-r from-blue-100 via-blue-300 to-blue-500 rounded-lg shadow-lg">
+    <div className="user-management p-6 bg-[#E3FFDF]    rounded-lg shadow-lg">
       <h2 className="text-3xl font-bold mb-4">User Management</h2>
       <form onSubmit={handleSubmit} className="mb-6">
         <div className="mb-4">
@@ -124,7 +124,7 @@ const UserManagement = () => {
           </select>
         </div>
         <button
-          className="w-full p-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700"
+          className="w-full p-2 bg-[#DC97FF] text-black font-semibold rounded-md hover:bg-blue-300"
           type="submit"
         >
           {editingUser ? "Update User" : "Add User"}
@@ -144,13 +144,13 @@ const UserManagement = () => {
             <div className="space-x-2">
               <button
                 onClick={() => setEditingUser(user)}
-                className="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
+                className="px-4 py-2 bg-[#DC97FF] text-black rounded-md hover:bg-yellow-600"
               >
                 Edit
               </button>
               <button
                 onClick={() => handleDelete(user._id)}
-                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                className="px-4 py-2 bg-[#3C0663] text-[#F8F6E3] rounded-md hover:bg-red-600"
               >
                 Delete
               </button>
